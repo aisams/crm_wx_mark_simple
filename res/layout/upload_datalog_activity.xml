@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/mapping_top_bottom"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color"
+    android:orientation="vertical"
+    tools:context="com.crm.finance.UploadDataLogActivity">
+
+    <include layout="@layout/custom_title" />
+
+    <EditText
+        android:id="@+id/ext_log_input"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:background="#fff"
+        android:padding="10dp"
+        android:textColor="@color/main_text_color"
+        android:textSize="12dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <Button
+            android:id="@+id/btn_send_broadcast"
+            android:layout_weight="1"
+            style="@style/btn_blu_style"
+            android:text="清空日志"/>
+
+        <Button
+            android:id="@+id/btn_update"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="更新版本"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_upload_rcontact"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="上传好友"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+</LinearLayout>

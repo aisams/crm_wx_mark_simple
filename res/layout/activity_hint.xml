@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/mapping_top_bottom"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color"
+    android:orientation="vertical"
+    tools:context="com.crm.finance.UploadDataLogActivity">
+    <include layout="@layout/custom_title" />
+
+    <EditText
+        android:id="@+id/ext_log_input"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:padding="10dp"
+        android:background="#fff"
+        android:textColor="@color/main_text_color"
+        android:text="为合规展业服务，在日常留痕设备使用中，员工禁止对留痕手机/留痕软件进行以下行为：\n\n
+1、禁止手机开启飞行模式；\n
+2、禁止中断连接wifi以及网络；\n
+3、禁止root授权关闭；\n
+4、禁止在root里面卸载预装程序；\n
+5、禁止应用在程序管理里面强制停止；\n
+6、禁止还原出厂设置；\n
+7、禁止留痕手机关机。\n\n
+
+如员工违反相关制度规定，视其情节轻重，可给予口头警告、书面警告、严重书面警告、解除劳动合同共4四级处罚！"
+        android:textSize="16sp" />
+
+</LinearLayout>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layout_set"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/set" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_logo"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="@string/app_name"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/circular_all_grey"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/img_state"
+                    style="@style/circular_icon"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/ok_icon" />
+
+                <TextView
+                    style="@style/tip_styele"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="留痕状态：" />
+
+                <TextView
+                    android:id="@+id/txt_state"
+                    style="@style/state_styele"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--" />
+            </LinearLayout>
+
+
+            <!--        <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="10dp">-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:id="@+id/img_network_state"
+                    style="@style/circular_icon"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/ok_icon" />
+
+                <TextView
+                    style="@style/tip_styele"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="网络状态：" />
+
+                <TextView
+                    android:id="@+id/txt_network_state"
+                    style="@style/state_styele"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:id="@+id/img_ROOT_state"
+                    style="@style/circular_icon"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/ok_icon" />
+
+                <TextView
+                    style="@style/tip_styele"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ROOT权限：" />
+
+                <TextView
+                    android:id="@+id/txt_ROOT_state"
+                    style="@style/state_styele"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:id="@+id/img_service"
+                    style="@style/circular_icon"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/ok_icon" />
+
+                <TextView
+                    style="@style/tip_styele"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="后台服务：" />
+
+                <TextView
+                    android:id="@+id/txt_service"
+                    style="@style/state_styele"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--" />
+            </LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/bg_dash_line_gray" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/tip_styele"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="软件版本：" />
+
+                <TextView
+                    android:id="@+id/txt_app_version"
+                    style="@style/state_styele"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    style="@style/tip_styele"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="日志状态：" />
+
+                <TextView
+                    android:id="@+id/txt_log_state"
+                    style="@style/state_styele"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    style="@style/tip_styele"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="最新数据上传时间：" />
+
+                <TextView
+                    android:id="@+id/txt_upload_time"
+                    style="@style/state_styele"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+
+                    android:lines="1"
+                    android:text="--" />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/btn_log"
+                style="@style/btn_blu_style"
+                android:text="查看日志" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/btn_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="注意事项"
+                    android:textColor="@color/grey_text_color"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
