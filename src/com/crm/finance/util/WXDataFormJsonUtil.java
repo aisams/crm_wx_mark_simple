@@ -246,14 +246,15 @@ public class WXDataFormJsonUtil {
         String userName = dao.getUsername();
         String nickName = dao.getNickname();
         String conRemark = dao.getConRemark();//备注名
-
+        long type = dao.getType();
         boolean isExsit = false;
         for(int i=0;i<rcontactInSelfDB.size();i++){
             RcontactDao selfDBDao = (RcontactDao) rcontactInSelfDB.get(i);
             String selfUserName = selfDBDao.getUsername();
             String selfNickName = selfDBDao.getNickname();
             String selfConRemark = selfDBDao.getConRemark();
-            if(userName.equals(selfUserName) && nickName.equals(selfNickName) && conRemark.equals(selfConRemark)){
+            long selfConType = selfDBDao.getType();
+            if(userName.equals(selfUserName) && nickName.equals(selfNickName) && conRemark.equals(selfConRemark) && (type == selfConType)){
                 return true;
             }
         }

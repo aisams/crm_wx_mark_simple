@@ -40,7 +40,7 @@ public class GlobalCofig {
 
     public static final String REDIS_HOST_TEST = "113.108.114.194";
     public static final int Port_TEST = 6379;//;//redis port
-    public static final String CRM_TIP = "crm_";//数据库前缀，因为纯数字无法当表名
+    public static final String CRM_TIP = "lhzl_";//留痕助理数据库前缀，因为纯数字无法当表名
 
 
     public static final String REDIS_KEY_MESSAGE = "wx_message_table_datas";

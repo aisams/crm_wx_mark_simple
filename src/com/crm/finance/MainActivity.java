@@ -211,6 +211,7 @@ public class MainActivity extends BaseActivity {
         }
     }
     public void isNoRootShowTip(boolean root){
+        if(root)return;//已获取权限不输出日志
         String noRootStr = "未获取ROOT权限";
         // LogInputUtil.showSingleTosat(this,noRootStr);
         Toast.makeText(this,noRootStr,Toast.LENGTH_SHORT);
@@ -313,6 +314,4 @@ public class MainActivity extends BaseActivity {
         System.exit(0);
         super.onDestroy();
     }
-
-
 }

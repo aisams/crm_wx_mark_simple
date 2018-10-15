@@ -26,6 +26,7 @@ public class WeChatDBOperator {
     private final String USERNAME = "username";//微信id
     private final String NICKNAME = "nickname";//微信昵称
     private final String CONREMARK = "conRemark";//微信备注
+    private final String TTPE = "type";//微信类型，0是删除的好友
     private  Context context;
     public WeChatDBOperator(Context context) {
         dbHelper = new WeChatDBHelper(context, GlobalCofig.WECHAT_DB_NAME + ".db", null, 1);
@@ -43,7 +44,8 @@ public class WeChatDBOperator {
      * @param tableName
      */
     public void createTable(String tableName) {
-        String create_table_sqlStr = "create table if not exists " + tableName + "("+USERNAME+" text primary key,"+NICKNAME+" text,"+CONREMARK+" text)";
+        String create_table_sqlStr = "create table if not exists " + tableName + "("+USERNAME+" text primary key,"+NICKNAME+" text,"+CONREMARK+" text,"+TTPE+" INTEGER)";
+        LogInputUtil.e(TAG,"建立数据库："+create_table_sqlStr);
         try {
             db.execSQL(create_table_sqlStr);
             addRcontactPath(context,tableName);
@@ -69,15 +71,18 @@ public class WeChatDBOperator {
 
         String userName = dao.getUsername();
         String conRemark = dao.getConRemark();
+        long type = dao.getType();
         try {
             boolean exist = isExist(tableName,userName);
             if(exist){
-                LogInputUtil.e(TAG,"好友存在数据库中,准备更新,userName ="+userName+",tableName = "+tableName+",conRemark = "+conRemark);
-                String update_rcontast_sqlStr = "update " + tableName + " set "+NICKNAME+"='"+dao.getNickname()+"',"+CONREMARK+"='"+conRemark+"' where "+USERNAME+"='"+userName+"'";
+                LogInputUtil.e(TAG,"好友存在数据库中,准备更新,userName ="+userName+",tableName = "+tableName+",conRemark = "+conRemark+",type = "+type);
+                String update_rcontast_sqlStr = "update " + tableName + " set "+NICKNAME+"='"+dao.getNickname()+"',"+CONREMARK+"='"+conRemark+"',"+TTPE+"="+type+" where "+USERNAME+"='"+userName+"'";
+                LogInputUtil.e(TAG,"更新好友列表："+update_rcontast_sqlStr);
                 db.execSQL(update_rcontast_sqlStr);
             }else {
                 LogInputUtil.e(TAG,"好友不在数据库中,准备插入,userName ="+userName+",tableName = "+tableName+",conRemark = "+conRemark);
-                String inser_rcontast_sqlStr = "insert into " + tableName + " values('"+userName+"','"+dao.getNickname()+"','"+conRemark+"')";
+                String inser_rcontast_sqlStr = "insert into " + tableName + " values('"+userName+"','"+dao.getNickname()+"','"+conRemark+"',"+type+")";
+                LogInputUtil.e(TAG,"插入好友列表："+inser_rcontast_sqlStr);
                 db.execSQL(inser_rcontast_sqlStr);
             }
         } catch (Exception e) {
@@ -143,6 +148,7 @@ public class WeChatDBOperator {
                 dao.setUsername(c.getString(0));
                 dao.setNickname(c.getString(1));
                 dao.setConRemark(c.getString(2));
+                dao.setType(c.getLong(3));
                 daos.add(dao);
             }
             c.close();
